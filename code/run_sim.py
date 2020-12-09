@@ -167,7 +167,7 @@ def run_handmade_projection_sim(language, viol, mgain, nconstraints, gam, parame
     simfunc.runCustomSim(feature, reducemem=reducemem)
     if 'output_baseline' in os.listdir(basepath):
         shutil.rmtree(basepath+'output_baseline')
-    simfunc.wrapSims(os.path.join('sims', '_'.join(language.replace(os.sep, "_"), 'custom')), cust=True)
+    simfunc.wrapSims(os.path.join('sims', '_'.join([language.replace(os.sep, "_"), 'custom'])), cust=True)
 
 def test_grammar(grammarfile, testfile):
     basepath = os.getcwd().split('code')[0]
