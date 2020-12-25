@@ -20,7 +20,7 @@ def makeJarPaths(basepath):
         extjarfiles = [x for x in os.listdir(extdir) if not x.startswith('.')]
         jarpaths = [os.path.join(jardir,x) for x in jarfiles]
         extpaths = [os.path.join(extdir,x) for x in extjarfiles]
-        alljar=':'.join(jarpaths+extpaths)
+        alljar=';'.join(jarpaths+extpaths)
         return alljar
 
 
