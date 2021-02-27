@@ -26,7 +26,7 @@ def run_mbsublex_sim(language, viol, mgain, nconstraints, mb, gam, parameters, r
     maxentdir = os.path.join(basepath, 'maxent2', 'temp')
     dircontent = os.listdir(maxentdir)
     vio = viol[0:2]
-    wrapstring = os.path.join('sims',language.replace(os.sep,"_")) + "_" + '_'.join(['wb','mbsublex', vio,'gain'+str(mgain),'con'+str(nconstraints)])
+    wrapstring = os.path.join('sims',language.replace(os.sep,"_")) + "_" + '_'.join(['wb','mbsublex', vio,'gain'+str(mgain),'con'+str(nconstraints),'gamma'+str(gam)])
     if not 'output_baseline' in dircontent:
         simfunc.cleanUpWorkdir(basepath)
         if parameters:
@@ -99,7 +99,7 @@ def run_wb_sim(language, viol, mgain, nconstraints, mb, gam, parameters, reducem
     else:
         simfunc.runCustomSim(reducemem=reducemem, simtype= 'wb')
     vio = viol[0:2]
-    wrapstring = os.path.join('sims',language.replace(os.sep,"_")) + "_" + '_'.join(['wb',vio,'gain'+str(mgain),'con'+str(nconstraints)])
+    wrapstring = os.path.join('sims',language.replace(os.sep,"_")) + "_" + '_'.join(['wb',vio,'gain'+str(mgain),'con'+str(nconstraints),'gamma'+str(gam)])
     return simfunc.wrapSims(wrapstring, ret=True)
 
 
@@ -120,7 +120,7 @@ def run_baseline_sim(language, viol, mgain, nconstraints, mb, gam, parameters, r
     try:
         simfunc.runBaselineSim(basepath, reducemem=reducemem)
         #language=language.split('../data/')[1].replace('/','_')
-        wrapstring = os.path.join('sims', language.replace(os.sep, "_") +'_baseline' + '_gain'+mgain + '_con' + nconstraints)
+        wrapstring = os.path.join('sims', language.replace(os.sep, "_") +'_baseline' + '_gain'+mgain + '_con' + nconstraints + '_gamma' + gam)
         simfunc.wrapSims(wrapstring)
     except CalledProcessError:
         print("Done")
@@ -188,7 +188,7 @@ def save_program_trace(learnsim, language, viol, mgain, nconstraints, mb, gam, p
     '''
     basepath = os.getcwd().split('code')[0]
     progtrace = io.StringIO()
-    out = open(os.path.join(basepath, 'program_trace.txt'), 'w', encoding='utf-8')
+    out = open(os.path.join(basepath, 'program_trace.txt'), 'w', encoding='utf8')
     with contextlib.redirect_stdout(progtrace):
         stuff = learnsim(language, viol, mgain, nconstraints, mb, gam, parameters, reducemem=reducemem)
     out.write(progtrace.getvalue())
